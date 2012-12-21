@@ -163,18 +163,18 @@ def extract_promoters(genome_accession_no, genbank_file=None,
                                         gene_pos_end = pr.gene_pos_end)
                 promoter_regions.append(new_pr)
 
-        # write output in FASTA format
-        print "writing output to '%s' in fasta format." % output_file
-        with open(output_file, 'w') as f:
-            for pr in promoter_regions:
-                f.write(">%s\n" % str(pr))
-                # get promoter sequence
-                pseq = seq_record.seq[pr.pos_start:pr.pos_end]
-                if pr.strand == -1:
-                    # reverse complement
-                    pseq = pseq.reverse_complement()
-                # print 100 chars each line
-                f.write("%s\n" % '\n'.join(split_len(pseq.tostring(), 100)))
+    # write output in FASTA format
+    print "writing output to '%s' in fasta format." % output_file
+    with open(output_file, 'w') as f:
+        for pr in promoter_regions:
+            f.write(">%s\n" % str(pr))
+            # get promoter sequence
+            pseq = seq_record.seq[pr.pos_start:pr.pos_end]
+            if pr.strand == -1:
+                # reverse complement
+                pseq = pseq.reverse_complement()
+            # print 100 chars each line
+            f.write("%s\n" % '\n'.join(split_len(pseq.tostring(), 100)))
 
     return promoter_regions
 
