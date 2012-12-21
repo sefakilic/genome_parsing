@@ -1,3 +1,16 @@
+"""
+Genome parsing functions.
+
+In all functions positions are 0-indexed, that means a sequence with position
+[3,10] starts at position 3 (4th letter) and ends at 10 (9th letter, not
+included).
+
+There are two functions implemented
+extract_promoters -- to extract promoter regions and
+extract_intergenics -- to get interegenic regions
+
+"""
+
 from bioutils import *
 from collections import namedtuple
 import sys
