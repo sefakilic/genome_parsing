@@ -103,10 +103,15 @@ def extract_promoters(genome_accession_no, genbank_file=None,
             pr_start = gene_start + promoter_start
             pr_end = gene_start + promoter_end
             assert pr_start < gene_start and pr_end > gene_start
+            # sometimes gene name doesn't exist in the gbk file
+            gene = None
+            if 'gene' in g.qualifiers:
+                gene = ', '.join(g.qualifiers['gene'])
+                
             pr = PromoterRegion(pos_start = pr_start,
                                 pos_end = pr_end,
                                 strand = g.strand,
-                                gene = ', '.join(g.qualifiers['gene']),
+                                gene = gene,
                                 gene_locus_tag = ', '.join(g.qualifiers['locus_tag']),
                                 gene_pos_start = g.location.nofuzzy_start,
                                 gene_pos_end = g.location.nofuzzy_end)
@@ -117,10 +122,16 @@ def extract_promoters(genome_accession_no, genbank_file=None,
             pr_start = gene_end - promoter_end
             pr_end = gene_end - promoter_start
             assert pr_start < gene_end and pr_end > gene_end
+
+            # sometimes gene name doesn't exist in the gbk file
+            gene = None
+            if 'gene' in g.qualifiers:
+                gene = ', '.join(g.qualifiers['gene'])
+
             pr = PromoterRegion(pos_start = pr_start,
                                 pos_end = pr_end,
                                 strand = g.strand,
-                                gene = g.qualifiers['gene'],
+                                gene = gene,
                                 gene_locus_tag = g.qualifiers['locus_tag'],
                                 gene_pos_start = g.location.nofuzzy_start,
                                 gene_pos_end = g.location.nofuzzy_end)
